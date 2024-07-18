@@ -1,4 +1,4 @@
 export interface Cell {
-    row: number;
-    col: number;
+    symbol: 'X' | 'O' | null;
+    color: string;
 }
