@@ -1,0 +1,10 @@
+<div class="home">
+    <h1>Welcome to Trivia Tic-Tac-Toe</h1>
+    <h5>Enter Players name to begin</h5>
+    <input type="text" [(ngModel)]="playerOneName" name="playerOne" id="playerOne" placeholder="Enter First Player Name">
+    <input type="text" [(ngModel)]="playerTwoName" name="playerTwo" id="playerTwo" placeholder="Enter Second Player Name">
+    <button (click)="navigateToQuestionBank()">Start Game</button>
+</div>
+<div class="errorMsg" *ngIf="showErrorAlert">
+  Please enter two players to begin
+</div>
