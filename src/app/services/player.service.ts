@@ -28,4 +28,8 @@ export class PlayerService {
     this.players = [] as Player[];
   }
 
+  getPlayers(): Player[] {
+    return this.players;
+  }
+
 }
