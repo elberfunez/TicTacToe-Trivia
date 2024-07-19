@@ -1,1 +1,17 @@
-<p>questionbank works!</p>
+<h1>Player: {{currentPlayer.name}}</h1>
+<h2>Score: {{currentPlayer.score}}</h2>
+<h4 class="currentQuestion">{{currentQuestion.text}}</h4>
+<div class="answers">
+
+    
+    <ol>
+        <button 
+        *ngFor="let option of currentQuestion.options"
+        (click)="selectAnswer(option, currentQuestion)">
+            {{option}}
+        </button>
+    </ol>
+</div>
+<div class="feedback">
+    {{feedbackText}}
+</div>

@@ -6,30 +6,44 @@ import { Player } from '../interfaces/player';
 })
 export class PlayerService {
   players: Player[] = [] as Player[];
+  currentPlayer: Player = {} as Player;
   constructor() { }
 
-  setPlayers(nameOfPlayerOne: string, nameOfPlayerTwo: string): void{
+  initializePlayers(nameOfPlayerOne: string, nameOfPlayerTwo: string): void{
     let playerOne: Player =  {
       id: 1,
       name: nameOfPlayerOne,
-      symbol: 'X'
+      symbol: 'X',
+      score: 0
     };
 
     let playerTwo: Player =  {
       id: 2,
       name: nameOfPlayerTwo,
-      symbol: 'O'
+      symbol: 'O',
+      score: 0
     };
 
     this.players.push(playerOne, playerTwo);
+  }
+
+  setCurrentPlayer(playerId: number): void {
+    let player = this.players.find(p => p.id == playerId);
+    if (player) {
+      this.currentPlayer = player;
+    }
   }
   
   resetPlayers(): void {
     this.players = [] as Player[];
   }
 
-  getPlayers(): Player[] {
+  getAllPlayers(): Player[] {
     return this.players;
+  }
+
+  getCurrentPlayer(): Player {
+    return this.currentPlayer;
   }
 
 }
