@@ -21,7 +21,8 @@ export class HomeComponent implements OnInit {
 
   navigateToQuestionBank(): void {
     if (this.areBothUsersEntered()) {
-      this.playerService.setPlayers(this.playerOneName, this.playerTwoName);
+      this.playerService.initializePlayers(this.playerOneName, this.playerTwoName);
+      this.playerService.setCurrentPlayer(1);
       this.router.navigate(['/questionbank']);
     }
     else {
