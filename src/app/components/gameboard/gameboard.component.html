@@ -1,1 +1,23 @@
-<p>gameboard works!</p>
+<div class="board">
+    <div *ngFor="let row of currentGameState.grid; let rowIndex = index" class="row">
+      <div *ngFor="let cell of row; let colIndex = index" class="cell" (click)="makeMove(rowIndex, colIndex)">
+        {{ cell.symbol }}
+      </div>
+    </div>
+  </div>
+  <div class="resultRibbon" *ngIf="currentGameState.isGameOver">
+    <div class="win" *ngIf="!currentGameState.isTie">
+      <h4 class="player">{{currentGameState.winner.name}} is the winner</h4>
+      <p class="correct">{{currentGameState.winner.correctAnswers}} questions correct</p>
+      <p class="incorrect">{{currentGameState.winner.incorrectAnswers}} questions incorrect</p>
+    </div>
+    <div class="tie" *ngIf="currentGameState.isTie">
+      <h4>Game Resulted in a tie</h4>
+      <h5>Stats</h5>
+    </div>
+  </div>
+
+  <div class="reset">
+    <button (click)="resetGame()">Reset Game</button>
+  </div>
+  
