@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GamestateService } from 'src/app/services/gamestate.service';
 import { PlayerService } from 'src/app/services/player.service';
+import { QuestionService } from 'src/app/services/question.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,12 @@ export class HomeComponent implements OnInit {
   playerTwoName: string = "";
   showErrorAlert: boolean = false;
 
-  constructor(private playerService: PlayerService, private router: Router){ }
+  constructor(
+    private playerService: PlayerService,
+    private questionService: QuestionService,
+    private router: Router,
+    private gameStateService: GamestateService
+  ){ }
 
   ngOnInit(): void {
     this.playerService.resetPlayers();
@@ -23,10 +30,12 @@ export class HomeComponent implements OnInit {
     if (this.areBothUsersEntered()) {
       this.playerService.initializePlayers(this.playerOneName, this.playerTwoName);
       this.playerService.setCurrentPlayer(1);
+      this.questionService.setCurrentQuestion(1);
+      this.gameStateService.initializeGameState();
       this.router.navigate(['/questionbank']);
     }
     else {
-      this.setErroMsg();
+      this.setErrorMsg();
     }
   }
   
@@ -34,7 +43,7 @@ export class HomeComponent implements OnInit {
     return !(this.playerOneName === '' || this.playerTwoName === '');
   }
 
-  setErroMsg(): void {
+  setErrorMsg(): void {
     this.showErrorAlert = true;
 
     setTimeout(() => {

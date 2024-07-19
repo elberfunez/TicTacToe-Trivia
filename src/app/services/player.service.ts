@@ -14,14 +14,16 @@ export class PlayerService {
       id: 1,
       name: nameOfPlayerOne,
       symbol: 'X',
-      score: 0
+      correctAnswers: 0,
+      incorrectAnswers: 0
     };
 
     let playerTwo: Player =  {
       id: 2,
       name: nameOfPlayerTwo,
       symbol: 'O',
-      score: 0
+      correctAnswers: 0,
+      incorrectAnswers: 0
     };
 
     this.players.push(playerOne, playerTwo);
