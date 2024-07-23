@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Question } from 'src/app/interfaces/models/question';
 import { GamestateService } from 'src/app/services/gamestate.service';
 import { PlayerService } from 'src/app/services/player.service';
 import { QuestionService } from 'src/app/services/question.service';
@@ -14,6 +15,8 @@ export class HomeComponent implements OnInit {
   playerOneName: string = "";
   playerTwoName: string = "";
   showErrorAlert: boolean = false;
+  questions: Question[] = [];
+  apiLoading: boolean = true;
 
   constructor(
     private playerService: PlayerService,
@@ -24,13 +27,13 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.playerService.resetPlayers();
+    this.fetchQuestions();
   }
 
   navigateToQuestionBank(): void {
     if (this.areBothUsersEntered()) {
       this.playerService.initializePlayers(this.playerOneName, this.playerTwoName);
       this.playerService.setCurrentPlayer(1);
-      this.questionService.setCurrentQuestion(1);
       this.gameStateService.initializeGameState();
       this.router.navigate(['/questionbank']);
     }
@@ -38,6 +41,16 @@ export class HomeComponent implements OnInit {
       this.setErrorMsg();
     }
   }
+
+  fetchQuestions(): void {
+    this.apiLoading = true;
+    this.questionService.fetchQuestions().subscribe((data: Question[]) =>{
+      this.questionService.setQuestionBank(data);
+      this.questions = this.questionService.getQuestionbank();
+      this.questionService.setCurrentQuestion(1);
+      this.apiLoading = false;
+    });
+   }
   
   areBothUsersEntered(): boolean {
     return !(this.playerOneName === '' || this.playerTwoName === '');

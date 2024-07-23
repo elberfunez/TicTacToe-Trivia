@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Player } from 'src/app/interfaces/player';
-import { Question } from 'src/app/interfaces/question';
+import { Player } from 'src/app/interfaces/models/player';
+import { Question } from 'src/app/interfaces/models/question';
 import { PlayerService } from 'src/app/services/player.service';
 import { QuestionService } from 'src/app/services/question.service';
 
@@ -20,7 +20,7 @@ export class QuestionbankComponent implements OnInit {
   constructor(private playerService: PlayerService, private questionService: QuestionService, private router: Router){ }
 
   ngOnInit(): void {
-    this.questions = this.questionService.getQuestions();
+    this.questions = this.questionService.getQuestionbank();
     this.reloadQuestion();
     this.currentPlayer = this.playerService.getCurrentPlayer();
    }
@@ -28,7 +28,7 @@ export class QuestionbankComponent implements OnInit {
    selectAnswer(optionSelected: string, currentQuestion: Question): void {
     let nextQuestionId = currentQuestion.id + 1;
     let nextPlayerId = (this.currentPlayer.id === 1) ? 2 : 1;
-    if (optionSelected === currentQuestion.answer) {
+    if (optionSelected === currentQuestion.correct_answer) {
       this.playerService.currentPlayer.correctAnswers++;
       this.feedbackText = "answer is correct!";
       this.showFeedback = true;
@@ -42,7 +42,7 @@ export class QuestionbankComponent implements OnInit {
       this.playerService.currentPlayer.incorrectAnswers++;
       this.questionService.setCurrentQuestion(nextQuestionId);
       this.playerService.setCurrentPlayer(nextPlayerId);
-      this.feedbackText = "wrong answer, correct answer is: " + currentQuestion.answer;
+      this.feedbackText = "wrong answer, correct answer is: " + currentQuestion.correct_answer;
       this.showFeedback = true;
       setTimeout(() => {
         this.showFeedback = false;

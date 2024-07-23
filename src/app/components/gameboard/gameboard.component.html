@@ -1,23 +1,31 @@
-<div class="board">
-    <div *ngFor="let row of currentGameState.grid; let rowIndex = index" class="row">
-      <div *ngFor="let cell of row; let colIndex = index" class="cell" (click)="makeMove(rowIndex, colIndex)">
-        {{ cell.symbol }}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6 text-center">
+      <div class="board mb-4">
+        <div *ngFor="let row of currentGameState.grid; let rowIndex = index" class="row">
+          <div *ngFor="let cell of row; let colIndex = index" class="col-4 p-1">
+            <div class="cell d-flex justify-content-center align-items-center border border-dark rounded" 
+                 [style.background-color]="cell.color" 
+                 (click)="makeMove(rowIndex, colIndex)" 
+                 style="height: 100px; font-size: 24px; cursor: pointer;">
+              {{ cell.symbol }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="resultRibbon" *ngIf="currentGameState.isGameOver">
+        <div class="alert alert-success" *ngIf="!currentGameState.isTie">
+          <h4 class="player">{{currentGameState.winner.name}} is the winner</h4>
+          <p class="correct">Correct answers: {{currentGameState.winner.correctAnswers}}</p>
+          <p class="incorrect">Incorrect answers: {{currentGameState.winner.incorrectAnswers}}</p>
+        </div>
+        <div class="alert alert-info" *ngIf="currentGameState.isTie">
+          <h4>Game Resulted in a Tie</h4>
+        </div>
+      </div>
+      <div class="reset mt-3">
+        <button class="btn btn-primary btn-lg" (click)="resetGame()">Reset Game</button>
       </div>
     </div>
   </div>
-  <div class="resultRibbon" *ngIf="currentGameState.isGameOver">
-    <div class="win" *ngIf="!currentGameState.isTie">
-      <h4 class="player">{{currentGameState.winner.name}} is the winner</h4>
-      <p class="correct">{{currentGameState.winner.correctAnswers}} questions correct</p>
-      <p class="incorrect">{{currentGameState.winner.incorrectAnswers}} questions incorrect</p>
-    </div>
-    <div class="tie" *ngIf="currentGameState.isTie">
-      <h4>Game Resulted in a tie</h4>
-      <h5>Stats</h5>
-    </div>
-  </div>
-
-  <div class="reset">
-    <button (click)="resetGame()">Reset Game</button>
-  </div>
-  
+</div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Gamestate } from '../interfaces/gamestate';
-import { Cell } from '../interfaces/cell';
-import { Player } from '../interfaces/player';
+import { Gamestate } from '../interfaces/models/gamestate';
+import { Cell } from '../interfaces/models/cell';
+import { Player } from '../interfaces/models/player';
 
 @Injectable({
   providedIn: 'root'
