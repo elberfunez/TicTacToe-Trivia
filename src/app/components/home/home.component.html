@@ -1,10 +1,20 @@
-<div class="home">
-    <h1>Welcome to Trivia Tic-Tac-Toe</h1>
-    <h5>Enter Players name to begin</h5>
-    <input type="text" [(ngModel)]="playerOneName" name="playerOne" id="playerOne" placeholder="Enter First Player Name">
-    <input type="text" [(ngModel)]="playerTwoName" name="playerTwo" id="playerTwo" placeholder="Enter Second Player Name">
-    <button (click)="navigateToQuestionBank()">Start Game</button>
-</div>
-<div class="errorMsg" *ngIf="showErrorAlert">
-  Please enter two players to begin
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6 text-center">
+      <h1 class="mb-4">Welcome to Trivia Tic-Tac-Toe</h1>
+      <h5 class="mb-4">Enter Players name to begin</h5>
+      <form>
+        <div class="form-group mb-3">
+          <input type="text" class="form-control" [(ngModel)]="playerOneName" name="playerOne" id="playerOne" placeholder="Enter First Player Name">
+        </div>
+        <div class="form-group mb-3">
+          <input type="text" class="form-control" [(ngModel)]="playerTwoName" name="playerTwo" id="playerTwo" placeholder="Enter Second Player Name">
+        </div>
+        <button type="button" class="btn btn-primary btn-block" [disabled]="apiLoading" (click)="navigateToQuestionBank()">Start Game</button>
+      </form>
+      <div class="alert alert-danger mt-3" *ngIf="showErrorAlert">
+        Please enter two players to begin
+      </div>
+    </div>
+  </div>
 </div>

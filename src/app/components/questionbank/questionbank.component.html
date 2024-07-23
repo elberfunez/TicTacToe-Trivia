@@ -1,17 +1,31 @@
-<h1>Player: {{currentPlayer.name}}</h1>
-<h2>Answered Correct: {{currentPlayer.correctAnswers}}</h2>
-<h4 class="currentQuestion">{{currentQuestion.text}}</h4>
-<div class="answers">
-
-    
-    <ol>
-        <button 
-        *ngFor="let option of currentQuestion.options"
-        (click)="selectAnswer(option, currentQuestion)">
-            {{option}}
-        </button>
-    </ol>
-</div>
-<div class="feedback">
-    {{feedbackText}}
-</div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 col-lg-8">
+        <div class="text-center mb-4">
+          <h1>Player: {{currentPlayer.name}}</h1>
+          <h2>Answered Correct: {{currentPlayer.correctAnswers}}</h2>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-4">{{currentQuestion.question}}</h4>
+            <div class="answers">
+              <div class="list-group">
+                <button 
+                  *ngFor="let option of currentQuestion.options"
+                  class="list-group-item list-group-item-action"
+                  (click)="selectAnswer(option, currentQuestion)">
+                  {{option}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="feedback mt-3 text-center">
+          <div *ngIf="feedbackText" class="alert alert-info">
+            {{feedbackText}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

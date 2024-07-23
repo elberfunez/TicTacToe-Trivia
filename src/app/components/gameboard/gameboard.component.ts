@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Cell } from 'src/app/interfaces/cell';
-import { Gamestate } from 'src/app/interfaces/gamestate';
-import { Player } from 'src/app/interfaces/player';
+import { Cell } from 'src/app/interfaces/models/cell';
+import { Gamestate } from 'src/app/interfaces/models/gamestate';
+import { Player } from 'src/app/interfaces/models/player';
 import { GamestateService } from 'src/app/services/gamestate.service';
 import { PlayerService } from 'src/app/services/player.service';
 import { QuestionService } from 'src/app/services/question.service';
@@ -33,8 +33,9 @@ export class GameboardComponent implements OnInit {
   makeMove(row: number, col: number): void {
     let nextQuestionId =  this.questionService.getCurrentQuestion().id + 1;
     let nextPlayerId = (this.currentPlayer.id === 1) ? 2 : 1;
+    let cellColor = (this.currentPlayer.id === 1) ? '#89c499': '#fff685'; // light green p1 or light yellow p2 
     if (this.currentGameState.grid[row][col].symbol === null) {
-      let cell: Cell = { symbol: this.currentPlayer.symbol, color: 'green' };
+      let cell: Cell = { symbol: this.currentPlayer.symbol, color: cellColor };
       this.currentGameState.grid[row][col] = cell;
       this.gameStateService.updateGameState(this.currentGameState);
       if (this.checkForWin(row, col) && !this.areAllCellsFilled()) {
